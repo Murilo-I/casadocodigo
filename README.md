@@ -49,3 +49,4 @@ alter table Produto_precos add constraint FK_hl4xdmygc7v2x607r4rbs6x3a foreign k
 alter table Usuario_Role add constraint FK_5nbp4m2sk65w2mq9rfn680cx2 foreign key (role_nome) references Role (nome);
 alter table Usuario_Role add constraint FK_4w45e3buitnd4f3ok8jdlrqkh foreign key (email) references Usuario (email);
 ```
+
