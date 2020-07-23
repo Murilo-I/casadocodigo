@@ -6,11 +6,10 @@
 
 O projeto usa MySQL e deve se chamar no banco `casadocodigo` (tem que alterar a senha do banco na classe `JPAConfiguration`).
 
-## URL
+## URL e inicialização
 
 Ao rodar no Eclipse pelo  Tomcat acesse: http://localhost:8080/casadocodigo
-	
-	
+ao acessar /login vai aparecer um fomulário de autenticação, usando os comandos sql abaixo você será capaz de fazer login com o usuário `admin@casadocodigo.com.br` e senha `123456`
 	
 ## Segue uns comandos SQL para popular o banco
 
