@@ -4,7 +4,7 @@
  
 ## MySQL
 
-O projeto usa MySQL e deve se chamar no banco `casadocodigo` (tem que alterar a senha do banco na classe `JPAConfiguration`).
+O projeto usa MySQL e deve se chamar no banco `casadocodigo` (tem que alterar a senha do banco na classe `JPAConfiguration`). As tabelas são geradas automaticamente.
 
 ## URL e inicialização
 
