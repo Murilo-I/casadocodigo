@@ -12,7 +12,7 @@ public class UsuarioValidation implements Validator {
 
 	@Autowired
 	private UsuarioDAO dao;
-	
+
 	@Override
 	public boolean supports(Class<?> clazz) {
 		return Usuario.class.isAssignableFrom(clazz);
@@ -26,17 +26,20 @@ public class UsuarioValidation implements Validator {
 		ValidationUtils.rejectIfEmpty(errors, "confirmaSenha", "field.required");
 
 		Usuario novoUsuario = (Usuario) target;
-		if(novoUsuario.getSenha().length() < 5) {
+		if (novoUsuario.getSenha().length() < 5) {
 			errors.rejectValue("senha", "field.password");
 		}
-		
-		if(dao.jaExiste(novoUsuario)) {
-			errors.rejectValue("email", "field.jaExiste");
-		}
-		
-		if(novoUsuario.getSenha() != novoUsuario.getConfirmaSenha()) {
+
+		if (novoUsuario.getSenha() != novoUsuario.getConfirmaSenha()) {
 			errors.rejectValue("confirmaSenha", "field.confirmPassword");
 		}
-	}
 
+		try {
+			if (dao.loadUserByUsername(novoUsuario.getEmail()) != null) {
+				errors.rejectValue("email", "field.jaExiste");
+			}
+		} catch (Exception e) {
+			return;
+		}
+	}
 }

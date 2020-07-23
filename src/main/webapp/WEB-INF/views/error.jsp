@@ -6,7 +6,7 @@
 <tags:pageTemplate titulo="Livros de Java, Android, iPhone, Ruby, PHP e muito mais ....">
 
 	<section id="index-section" class="container middle">
-		<h1 class="alert alert-danger">Erro genérico acontecendo!!!</h1>
+		<h1 class="alert alert-danger">${exception.message}</h1>
 		
     <!-- 
         Mensagem: ${exception.message}

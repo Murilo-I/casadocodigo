@@ -53,7 +53,7 @@ public class UsuarioController {
 		userDao.gravar(usuario);
 		redirectAttributes.addFlashAttribute("message", "Usuário cadastrado com sucesso!");
 		
-		return new ModelAndView("redirect:/userList");
+		return new ModelAndView("redirect:/usuarios");
 	}
 		
 	@RequestMapping("/form")

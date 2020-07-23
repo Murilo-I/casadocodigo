@@ -17,7 +17,7 @@
 	type="icon" />
 <link href="https://plus.googlecom/108540024862647200608"
 	rel="publisher" />
-<title>${titulo }- Casa do Código</title>
+<title>${titulo }-Casa do Código</title>
 <link href="${contextPath}resources/css/cssbase-min.css"
 	rel="stylesheet" type="text/css" media="all" />
 <link href='http://fonts.googleapis.com/css?family=Droid+Sans:400,700'
@@ -45,8 +45,12 @@
 	rel="stylesheet" type="text/css" media="all" />
 <link href="${contextPath}resources/css/pace-theme-mac-osx.css"
 	rel="stylesheet" type="text/css" media="all" />
-<link href="${contextPath}resources/css/estilo.css"
-	rel="stylesheet" type="text/css" media="all" />
+<link href="${contextPath}resources/css/estilo.css" rel="stylesheet"
+	type="text/css" media="all" />
+<link rel="stylesheet"
+	href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+	integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
+	crossorigin="anonymous" />
 </head>
 <body class="${bodyClass}">
 

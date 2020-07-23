@@ -11,7 +11,7 @@
 		<h1>
 			<fmt:message key="user.list.title" />
 		</h1>
-		<p>${message }</p>
+		<p class="alert alert-success">${message }</p>
 		<table class="table-estilo">
 			<tr>
 				<th><fmt:message key="user.name" /></th>
@@ -25,11 +25,23 @@
 					<td>${uesr.email }</td>
 					<td>${uesr.roles }</td>
 					<td><a style="text-decoration: none;"
-						href="${s:mvcUrl('UC#roleForm').build() }">&#10133;</a></td>
+						href="${s:mvcUrl('UC#roleForm').build() }"><i
+							class="far fa-edit"></i></a></td>
 				</tr>
 			</c:forEach>
 		</table>
-		<a href="${s:mvcUrl('UC#usuarioForm').build() }"><fmt:message key="user.list.link"/></a>
+		<a href="${s:mvcUrl('UC#usuarioForm').build() }"><fmt:message
+				key="user.list.link" /></a>
 	</div>
+	
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+	<script type="text/javascript">
+		$().ready(function() {
+			setTimeout(function() {
+				$('.alert-success').hide();
+			}, 2500);
+		});
+	</script>
 
 </tags:pageTemplate>

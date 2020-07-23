@@ -45,7 +45,7 @@
 	<script type="text/javascript">
 		$().ready(function() {
 			setTimeout(function() {
-				$('#alert-danger').hide();
+				$('.alert-danger').hide();
 			}, 5000);
 		});
 	</script>
