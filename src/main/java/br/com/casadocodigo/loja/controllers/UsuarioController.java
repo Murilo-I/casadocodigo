@@ -28,10 +28,12 @@ public class UsuarioController {
 	private UsuarioDAO userDao;
 	@Autowired
 	private RoleDAO roleDao;
+	@Autowired
+	private UsuarioValidation usuarioValidation;
 	
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {
-		binder.addValidators(new UsuarioValidation());
+		binder.addValidators(usuarioValidation);
 	}
 	
 	@RequestMapping(method = RequestMethod.GET)
@@ -63,15 +65,17 @@ public class UsuarioController {
 	
 	@RequestMapping(value = "/role", method = RequestMethod.POST)
 	public ModelAndView editarRole(Usuario usuario, RedirectAttributes redirectAttributes) {
-		ModelAndView view = new ModelAndView("redirect:/userList");
-		List<Role> role = roleDao.listar();
-		view.addObject("usuario", usuario);
-		view.addObject("role", role);
-		return view;
+		roleDao.editarRole(usuario);
+		redirectAttributes.addFlashAttribute("message", "Role alterada com sucesso");
+		return new ModelAndView("redirect:/usuarios");
 	}
 	
 	@RequestMapping(value = "/role", method = RequestMethod.GET)
 	public ModelAndView roleForm(Usuario usuario) {
-		return new ModelAndView("/userRole");
+		ModelAndView view = new ModelAndView("/userRole");
+		List<Role> roles = roleDao.listar();
+		view.addObject("roles", roles);
+		view.addObject("usuario", usuario);
+		return view;
 	}
 }

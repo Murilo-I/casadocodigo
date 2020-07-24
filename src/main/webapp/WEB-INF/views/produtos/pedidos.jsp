@@ -12,8 +12,8 @@
 		<table class="table-estilo">
 			<tr>
 				<th>ID</th>
-				<th><fmt:message key="pedidos.date"/></th>
 				<th><fmt:message key="pedidos.value"/></th>
+				<th><fmt:message key="pedidos.date"/></th>
 				<th><fmt:message key="pedidos.books.title"/></th>
 			</tr>
 			<c:forEach items="${pedidos }" var="pedido" varStatus="status">
@@ -22,7 +22,7 @@
 					<td>${pedido.valor }</td>
 					<td><fmt:formatDate value="${pedido.data.time }"
 							pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" /></td>
-					<td>${pedido.produtos[satus.index].titulo }</td>
+					<td>${pedido.produtoTitulos }</td>
 				</tr>
 			</c:forEach>
 		</table>

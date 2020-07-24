@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Pedidos implements Serializable {
 
@@ -37,5 +38,9 @@ public class Pedidos implements Serializable {
 	}
 	public void setProdutos(List<Produto> produtos) {
 		this.produtos = produtos;
+	}
+	
+	public String getProdutoTitulos() {
+		return produtos.stream().map(Produto::getTitulo).collect(Collectors.toList()).toString();
 	}
 }

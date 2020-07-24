@@ -8,7 +8,7 @@
 
 <tags:pageTemplate titulo="Roles">
 
-	<div class="container">
+	<div class="container" style="font-size: 1rem">
 		<h1>
 			<fmt:message key="user.form.role.title" />
 			${usuario.nome }
@@ -16,8 +16,8 @@
 		<form:form action="${s:mvcUrl('UC#editarRole').build() }"
 			method="post" commandName="usuario">
 			<div class="form-group">
-				<label><fmt:message key="user.form.role.permission" /></label>
-				<form:checkboxes items="${role.nome }" path="roles"/>
+				<label><fmt:message key="user.form.role.permission" />:</label>
+				<form:checkboxes path="roles" items="${roles}" cssStyle="margin: .5rem"/>
 			</div>
 			<button type="submit" class="btn-primary">
 				<fmt:message key="user.form.role.button" />

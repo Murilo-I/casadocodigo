@@ -22,8 +22,8 @@
 			<c:forEach items="${usuarios }" var="user" varStatus="status">
 				<tr>
 					<td>${user.nome }</td>
-					<td>${uesr.email }</td>
-					<td>${uesr.roles }</td>
+					<td>${user.email }</td>
+					<td>${user.roles }</td>
 					<td><a style="text-decoration: none;"
 						href="${s:mvcUrl('UC#roleForm').build() }"><i
 							class="far fa-edit"></i></a></td>
@@ -33,7 +33,7 @@
 		<a href="${s:mvcUrl('UC#usuarioForm').build() }"><fmt:message
 				key="user.list.link" /></a>
 	</div>
-	
+
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 	<script type="text/javascript">

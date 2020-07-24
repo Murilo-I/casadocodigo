@@ -1,6 +1,7 @@
 package br.com.casadocodigo.loja.validation;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
@@ -8,6 +9,7 @@ import org.springframework.validation.Validator;
 import br.com.casadocodigo.loja.dao.UsuarioDAO;
 import br.com.casadocodigo.loja.models.Usuario;
 
+@Component
 public class UsuarioValidation implements Validator {
 
 	@Autowired
@@ -30,16 +32,12 @@ public class UsuarioValidation implements Validator {
 			errors.rejectValue("senha", "field.password");
 		}
 
-		if (novoUsuario.getSenha() != novoUsuario.getConfirmaSenha()) {
+		if (!novoUsuario.getSenha().contentEquals(novoUsuario.getConfirmaSenha())) {
 			errors.rejectValue("confirmaSenha", "field.confirmPassword");
 		}
 
-		try {
-			if (dao.loadUserByUsername(novoUsuario.getEmail()) != null) {
-				errors.rejectValue("email", "field.jaExiste");
-			}
-		} catch (Exception e) {
-			return;
+		if (dao.existe(novoUsuario.getEmail())) {
+			errors.rejectValue("email", "field.jaExiste");
 		}
 	}
 }

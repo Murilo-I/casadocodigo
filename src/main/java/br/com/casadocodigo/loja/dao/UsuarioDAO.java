@@ -35,7 +35,14 @@ public class UsuarioDAO implements UserDetailsService {
 	}
 
 	public List<Usuario> listar() {
-		return manager.createQuery("select distinct(u) from Usuario u join fetch u.roles", Usuario.class)
+		return manager.createQuery("select u from Usuario u left join fetch u.roles", Usuario.class)
 				.getResultList();
+	}
+	
+	public boolean existe(String email) {
+		List<Usuario> list = manager.createQuery("select u from Usuario u where email = :email", Usuario.class)
+				.setParameter("email", email).getResultList();
+		
+		return !list.isEmpty();
 	}
 }

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.com.casadocodigo.loja.models.Role;
+import br.com.casadocodigo.loja.models.Usuario;
 
 @Repository
 @Transactional
@@ -23,5 +24,9 @@ public class RoleDAO {
 	
 	public List<Role> listar() {
 		return manager.createQuery("select r from Role r", Role.class).getResultList();
+	}
+
+	public void editarRole(Usuario usuario) {
+		//A implementar
 	}
 }
