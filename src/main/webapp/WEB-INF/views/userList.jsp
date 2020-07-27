@@ -19,13 +19,13 @@
 				<th>Roles</th>
 				<th><fmt:message key="user.edit" /></th>
 			</tr>
-			<c:forEach items="${usuarios }" var="user" varStatus="status">
+			<c:forEach items="${usuarios }" var="usuario" varStatus="status">
 				<tr>
-					<td>${user.nome }</td>
-					<td>${user.email }</td>
-					<td>${user.roles }</td>
+					<td>${usuario.nome }</td>
+					<td>${usuario.email }</td>
+					<td>${usuario.roles }</td>
 					<td><a style="text-decoration: none;"
-						href="${s:mvcUrl('UC#roleForm').build() }"><i
+						href="${s:mvcUrl('UC#roleForm').arg(0, usuario.email).build() }"><i
 							class="far fa-edit"></i></a></td>
 				</tr>
 			</c:forEach>

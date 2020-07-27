@@ -21,12 +21,15 @@ public class RoleDAO {
 	public void gravar(Role role) {
 		manager.persist(role);
 	}
-	
+
 	public List<Role> listar() {
 		return manager.createQuery("select r from Role r", Role.class).getResultList();
 	}
 
-	public void editarRole(Usuario usuario) {
-		//A implementar
+	public void editarRole(Usuario usuario, List<Role> roles) {
+		manager.merge(usuario);
+		manager.createQuery("delete from usuario_role where email = :email")
+				.setParameter("email", usuario.getEmail());
+		usuario.setRoles(roles);
 	}
 }
