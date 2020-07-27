@@ -1,6 +1,6 @@
 ## Ambiente 
 
- Aplicação foi testado com JRE8 e JRE9 no Apache Tomcat 7, 8, 9
+ Aplicação foi testado com JRE8 e JRE9 no Apache Tomcat 7, 8 e 9.
  
 ## MySQL
 
