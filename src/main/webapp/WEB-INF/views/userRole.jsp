@@ -10,12 +10,13 @@
 
 	<div class="container" style="font-size: 1rem">
 		<form:form
-			action="${s:mvcUrl('UC#editarRole').build() }"
-			method="post" modelAttribute="usuario">
+			action="${s:mvcUrl('RC#editarRole').arg(0, usuario.email).build() }"
+			method="post" modelAttribute="editRole">
 			<h1>
 				<fmt:message key="user.form.role.title" />
 				${usuario.nome }
 			</h1>
+			<form:hidden path="userEmail" value="${usuario.email }"/>
 			<div class="form-group">
 				<label><fmt:message key="user.form.role.permission" />:</label>
 				<form:checkboxes path="roles" items="${roles}"

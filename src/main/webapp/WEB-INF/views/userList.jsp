@@ -25,7 +25,7 @@
 					<td>${usuario.email }</td>
 					<td>${usuario.roles }</td>
 					<td><a style="text-decoration: none;"
-						href="${s:mvcUrl('UC#roleForm').arg(0, usuario.email).build() }"><i
+						href="${s:mvcUrl('RC#roleForm').arg(0, usuario.email).build() }"><i
 							class="far fa-edit"></i></a></td>
 				</tr>
 			</c:forEach>

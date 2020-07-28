@@ -35,7 +35,7 @@ public class UsuarioDAO implements UserDetailsService {
 	}
 
 	public List<Usuario> listar() {
-		return manager.createQuery("select u from Usuario u left join fetch u.roles", Usuario.class)
+		return manager.createQuery("select u from Usuario u", Usuario.class)
 				.getResultList();
 	}
 	

@@ -1,24 +1,23 @@
 package br.com.casadocodigo.loja.controllers;
 
-import java.util.ArrayList;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import br.com.casadocodigo.loja.dao.RoleDAO;
 import br.com.casadocodigo.loja.dao.UsuarioDAO;
-import br.com.casadocodigo.loja.models.Role;
 import br.com.casadocodigo.loja.models.Usuario;
 import br.com.casadocodigo.loja.validation.UsuarioValidation;
 
@@ -28,8 +27,6 @@ public class UsuarioController {
 
 	@Autowired
 	private UsuarioDAO userDao;
-	@Autowired
-	private RoleDAO roleDao;
 	@Autowired
 	private UsuarioValidation usuarioValidation;
 
@@ -53,7 +50,8 @@ public class UsuarioController {
 		if (result.hasErrors()) {
 			return usuarioForm(usuario);
 		}
-
+		
+		criptografarSenha(usuario);
 		userDao.gravar(usuario);
 		redirectAttributes.addFlashAttribute("message", "Usuário cadastrado com sucesso!");
 
@@ -65,20 +63,20 @@ public class UsuarioController {
 		return new ModelAndView("/userForm");
 	}
 
-	@RequestMapping(value = "/role", method = RequestMethod.POST)
-	public ModelAndView editarRole(Usuario usuario, ArrayList<Role> roles, RedirectAttributes redirectAttributes) {
-		roleDao.editarRole(usuario, roles);
-		redirectAttributes.addFlashAttribute("message", "Role alterada com sucesso");
-		return new ModelAndView("redirect:/usuarios");
+	private void criptografarSenha(Usuario usuario) {
+		String senha = usuario.getSenha();
+		String senha2 = usuario.getConfirmaSenha();
+		usuario.setSenha(generate(senha));
+		usuario.setConfirmaSenha(generate(senha2));
 	}
-
-	@RequestMapping(value = "/role", method = RequestMethod.GET)
-	public ModelAndView roleForm(@RequestParam String email) {
-		ModelAndView view = new ModelAndView("/userRole");
-		Usuario u = userDao.loadUserByUsername(email);
-		view.addObject("usuario", u);
-		List<Role> roles = roleDao.listar();
-		view.addObject("roles", roles);
-		return view;
+	
+	private String generate(String senha) {
+		try {
+			byte[] digest = MessageDigest.getInstance("sha-256").digest(senha.getBytes());
+			String encode = new BCryptPasswordEncoder().encode(digest.toString());
+			return encode;
+		} catch (NoSuchAlgorithmException e) {
+			throw new RuntimeException(e);
+		}
 	}
 }

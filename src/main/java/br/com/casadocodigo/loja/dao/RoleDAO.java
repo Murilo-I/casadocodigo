@@ -1,5 +1,6 @@
 package br.com.casadocodigo.loja.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -26,10 +27,16 @@ public class RoleDAO {
 		return manager.createQuery("select r from Role r", Role.class).getResultList();
 	}
 
-	public void editarRole(Usuario usuario, List<Role> roles) {
+	public void editarRole(Usuario usuario, List<String> roles) {
 		manager.merge(usuario);
-		manager.createQuery("delete from usuario_role where email = :email")
-				.setParameter("email", usuario.getEmail());
-		usuario.setRoles(roles);
+		List<Role> listRole = new ArrayList<>();
+		
+		for(int index = 0; index < roles.size(); index++) {
+			Role role = new Role();
+			role.setNome(roles.get(index).toString());
+			listRole.add(role);
+		}
+		
+		usuario.setRoles(listRole);
 	}
 }
