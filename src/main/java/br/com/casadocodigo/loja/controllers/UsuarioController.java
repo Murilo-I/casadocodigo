@@ -1,13 +1,11 @@
 package br.com.casadocodigo.loja.controllers;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
@@ -66,17 +64,10 @@ public class UsuarioController {
 	private void criptografarSenha(Usuario usuario) {
 		String senha = usuario.getSenha();
 		String senha2 = usuario.getConfirmaSenha();
-		usuario.setSenha(generate(senha));
-		usuario.setConfirmaSenha(generate(senha2));
-	}
-	
-	private String generate(String senha) {
-		try {
-			byte[] digest = MessageDigest.getInstance("sha-256").digest(senha.getBytes());
-			String encode = new BCryptPasswordEncoder().encode(digest.toString());
-			return encode;
-		} catch (NoSuchAlgorithmException e) {
-			throw new RuntimeException(e);
-		}
+		String salt1 = BCrypt.gensalt();
+		String salt2 = BCrypt.gensalt();
+		
+		usuario.setSenha(BCrypt.hashpw(senha, salt1));
+		usuario.setConfirmaSenha(BCrypt.hashpw(senha2, salt2));
 	}
 }
