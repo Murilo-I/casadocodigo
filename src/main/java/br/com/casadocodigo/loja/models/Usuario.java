@@ -22,7 +22,6 @@ public class Usuario implements UserDetails {
 	@Id
 	private String email;
 	private String senha;
-	private String confirmaSenha;
 	private String nome;
 
 	@ManyToMany(fetch = FetchType.EAGER)
@@ -31,6 +30,14 @@ public class Usuario implements UserDetails {
 		inverseJoinColumns = @JoinColumn(name = "role_nome"))
 	private List<Role> roles = new ArrayList<>();
 
+	public Usuario() {}
+	
+	public Usuario(String email, String senha, String nome) {
+		this.email = email;
+		this.senha = senha;
+		this.nome = nome;
+	}
+	
 	public String getEmail() {
 		return email;
 	}
@@ -45,14 +52,6 @@ public class Usuario implements UserDetails {
 
 	public void setSenha(String senha) {
 		this.senha = senha;
-	}
-	
-	public String getConfirmaSenha() {
-		return confirmaSenha;
-	}
-	
-	public void setConfirmaSenha(String confirmaSenha) {
-		this.confirmaSenha = confirmaSenha;
 	}
 
 	public String getNome() {

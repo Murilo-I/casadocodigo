@@ -13,7 +13,7 @@
 			<fmt:message key="user.form.title" />
 		</h1>
 		<form:form action="${s:mvcUrl('UC#cadastrarUsuario').build() }"
-			method="post" commandName="usuario">
+			method="post" commandName="usuarioDTO">
 			<div class="form-group">
 				<form:input path="nome" cssClass="form-control"
 					placeholder="Nome de Usuário" />

@@ -17,6 +17,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.com.casadocodigo.loja.dao.UsuarioDAO;
 import br.com.casadocodigo.loja.models.Usuario;
+import br.com.casadocodigo.loja.models.UsuarioDTO;
 import br.com.casadocodigo.loja.validation.UsuarioValidation;
 
 @Controller
@@ -42,13 +43,14 @@ public class UsuarioController {
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	public ModelAndView cadastrarUsuario(@Valid Usuario usuario, BindingResult result,
+	public ModelAndView cadastrarUsuario(@Valid UsuarioDTO usuarioDTO, BindingResult result,
 			RedirectAttributes redirectAttributes) {
-
+		
 		if (result.hasErrors()) {
-			return usuarioForm(usuario);
+			return usuarioForm(usuarioDTO);
 		}
 		
+		Usuario usuario = usuarioDTO.parseUser();
 		criptografarSenha(usuario);
 		userDao.gravar(usuario);
 		redirectAttributes.addFlashAttribute("message", "Usuário cadastrado com sucesso!");
@@ -57,17 +59,13 @@ public class UsuarioController {
 	}
 
 	@RequestMapping("/form")
-	public ModelAndView usuarioForm(Usuario usuario) {
+	public ModelAndView usuarioForm(UsuarioDTO usuarioDTO) {
 		return new ModelAndView("/userForm");
 	}
 
 	private void criptografarSenha(Usuario usuario) {
 		String senha = usuario.getSenha();
-		String senha2 = usuario.getConfirmaSenha();
-		String salt1 = BCrypt.gensalt();
-		String salt2 = BCrypt.gensalt();
-		
-		usuario.setSenha(BCrypt.hashpw(senha, salt1));
-		usuario.setConfirmaSenha(BCrypt.hashpw(senha2, salt2));
+		String salt = BCrypt.gensalt();
+		usuario.setSenha(BCrypt.hashpw(senha, salt));
 	}
 }
